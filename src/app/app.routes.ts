@@ -9,10 +9,11 @@ export const routes: Routes = [
     },
     {
         path: "",
-        component: HomeLoginComponent
+        redirectTo: "/login",
+        pathMatch: 'full'
     },
     {
         path: "register",
-        component: HomeRegisterComponent
+        component: HomeRegisterComponent,
     }
 ];
