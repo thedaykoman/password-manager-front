@@ -21,7 +21,7 @@ export class LoginBoardComponent {
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         // Redirecionar após o login bem-sucedido
-        this.router.navigate(['/dashboard']); // Certifique-se de que o caminho está correto
+        this.router.navigate(['/dashboard']); 
       },
       error: (err) => {
         console.error('Login failed', err);
