@@ -11,13 +11,24 @@ import { Router, RouterLink } from '@angular/router';
 })
 
 export class RegisterBoardComponent {
-  name: string = '';
-  email: string = '';
-  password: string = '';
+  username: string = 'string';
+  email: string = 'user@example.com';
+  password: string = 'string';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
 
   onRegister(): void {
-    alert(this.name + this.email + this.password);
+    this.authService.register(this.username, this.email, this.password).subscribe({
+      next: () => {
+        this.router.navigate(['dashboard'])
+      },
+      error: (err) => {
+        console.error("Register failed", err)
+      }
+    })
   }
 }

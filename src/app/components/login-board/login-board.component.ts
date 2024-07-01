@@ -1,5 +1,5 @@
 import { AuthService } from './../../auth/auth.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -12,16 +12,19 @@ import { Router, RouterLink } from '@angular/router';
 })
 
 export class LoginBoardComponent {
-  email:string = '';
-  password: string = '';
+  email: string = 'user@example.com';
+  password: string = 'string';
 
-  constructor(private authService: AuthService, private router: Router) {}
-  
+  constructor(private authService: AuthService, private router: Router) {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
   onLogin(): void {
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
-        // Redirecionar após o login bem-sucedido
-        this.router.navigate(['/dashboard']); 
+        this.router.navigate(['dashboard'])
       },
       error: (err) => {
         console.error('Login failed', err);
